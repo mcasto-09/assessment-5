@@ -23,9 +23,18 @@ console.log('-- Problem 01 --');
 console.log(problem01?.rows);
 
 // Problem 02
-export const problem02 = null;
-// console.log('-- Problem 02 --');
-// console.log(problem02?.rows);
+export const problem02 = await client.query(`
+  SELECT id
+  FROM orders
+  WHERE customer_id IN (
+  SELECT id
+  FROM customers
+  WHERE fname = 'Elizabeth' AND lname = 'Crocker
+  );
+`);
+
+console.log('-- Problem 02 --');
+console.log(problem02?.rows);
 
 // Problem 03
 export const problem03 = null;
