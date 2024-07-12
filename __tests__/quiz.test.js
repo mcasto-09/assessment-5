@@ -3,7 +3,9 @@ const { Client } = pg;
 import * as studentAnswers from '../src/quiz.js';
 
 const client = new Client({
-  user: "Devmountain",
+  // Your postgres user
+  user: "marycastorani",
+  // Postgres password (was set as null during orientation)
   password: null,
   host: "localhost",
   port: 5432,

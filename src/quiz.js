@@ -37,14 +37,22 @@ console.log('-- Problem 02 --');
 console.log(problem02?.rows);
 
 // Problem 03
-export const problem03 = null;
-// console.log('-- Problem 03 --');
-// console.log(problem03?.rows);
+export const problem03 = await client.query(`
+  SELECT SUM(num_cupcakes) AS sum
+  FROM orders
+  WHERE processed = 'f';
+`)
+console.log('-- Problem 03 --');
+console.log(problem03?.rows);
 
 // Problem 04
-export const problem04 = null;
-// console.log('-- Problem 04 --');
-// console.log(problem04?.rows);
+export const problem04 = await client.query (`
+  SELECT c.name, (SUM(o.num_cupcakes),0) AS sum
+  FROM cupcakes c
+  LEFT JOIN orders o ON c.id = o.cupcake_id
+  GROUP BY c.name
+  ORDER BY c.name;
+`)
 
 // Problem 05
 export const problem05 = null;
