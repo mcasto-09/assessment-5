@@ -30,7 +30,6 @@ export const query8 = await Human.findAll({ where: { email: { [Sequelize.Op.notL
 // Print a directory of humans and their animals
 export async function printHumansAndAnimals() {
     try {
-      // Fetch all humans with their associated animals
       const humans = await Human.findAll({
         include: {
           model: Animal,
@@ -39,7 +38,6 @@ export async function printHumansAndAnimals() {
         order: ['fname', 'lname']
       })
   
-      // Print the directory
       humans.forEach(human => {
         console.log(`${human.fname} ${human.lname}`)
         human.animals.forEach(animal => {
@@ -50,11 +48,36 @@ export async function printHumansAndAnimals() {
     } catch (error) {
       console.error('Error:', error)
     } finally {
-      sequelize.close(); // Close the database connection
+      sequelize.close(); 
     }
   }
 
 
 // Return a Set containing the full names of all humans
 // with animals of the given species.
-export async function getHumansByAnimalSpecies(species) {}
+export async function getHumansByAnimalSpecies(species) {
+    try {
+      const humans = await Human.findAll({
+        include: {
+          model: Animal,
+          where: { species },
+          attributes: [],
+        },
+        attributes: ['fname', 'lname'],
+      });
+  
+      const humansSet = new Set();
+      humans.forEach(human => {
+        const fullName = `${human.fname} ${human.lname}`;
+        humansSet.add(fullName);
+      });
+  
+      return humansSet;
+  
+    } catch (error) {
+      console.error('Error:', error);
+      throw error;
+    } finally {
+      sequelize.close(); 
+    }
+  }
