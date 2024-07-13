@@ -1,8 +1,8 @@
-import { Op } from 'sequelize';
+import { Sequelize, DataTypes, Op } from 'sequelize';
 import { Animal, Human } from './model.js';
 
 // Get the human with the primary key 2
-export const query1 = await Human.findByPk(2)
+export const query1 = await Human.findByPk(20)
 
 // Get the first animal whose species is "fish"
 export const query2 = await Animal.findOne({ where: { species: 'fish' } })
@@ -11,19 +11,19 @@ export const query2 = await Animal.findOne({ where: { species: 'fish' } })
 export const query3 = await Animal.findAll({ where: { human_id: 5 } })
 
 // Get all animals born in a year greater than (but not equal to) 2015.
-export const query4 = await Animal.findAll({ where: { birth_year: { [Sequelize.Op.gt]: 2015 } } }); //gt = greater than
+export const query4 = await Animal.findAll({ where: { birth_year: { [Op.gt]: 2015 } } }); //gt = greater than
 
 // Get all the humans with first names that start with "J"
 export const query5 =  await Human.findAll({ where: { fname: { [Op.startsWith]:'J' } } })
 
 // Get all the animals who don't have a birth year
-export const query6 = await Animal.findAll({ where: { birth_year: { [Sequelize.Op.is]: null } } })
+export const query6 = await Animal.findAll({ where: { birth_year: { [Op.is]: null } } })
 
 // Get all the animals with species "fish" OR "rabbit"
-export const query7 = await Animal.findAll({ where : {species:{[Sequelize.Op.or]: ['fish', 'rabbit']}}})
+export const query7 = await Animal.findAll({ where : {species:{[Op.or]: ['fish', 'rabbit']}}})
 
 // Get all the humans who DON'T have an email address that contains "gmail"
-export const query8 = await Human.findAll({ where: { email: { [Sequelize.Op.notLike]: '%gmail%' } } })
+export const query8 = await Human.findAll({ where: { email: { [Op.notLike]: '%gmail%' } } })
 
 // Continue reading the instructions before you move on!
 
