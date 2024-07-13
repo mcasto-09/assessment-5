@@ -29,7 +29,7 @@ export const problem02 = await client.query(`
   WHERE customer_id IN (
   SELECT id
   FROM customers
-  WHERE fname = 'Elizabeth' AND lname = 'Crocker
+  WHERE fname = 'Elizabeth' AND lname = 'Crocker'
   );
 `);
 
